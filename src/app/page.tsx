@@ -1,20 +1,23 @@
-import Hero from "./components/Hero"
-import About from "./components/About"
-import Services from "./components/Services"
-import Products from "./components/Products"
-import Market from "./components/Market"
-import Leadership from "./components/Leadership"
+import Hero from "@/components/Hero";
+import MarqueeTicker from "@/components/MarqueeTicker";
+import AboutSection from "@/components/AboutSection";
+import ProductsSection from "@/components/ProductsSection";
+import Process from "@/components/Process";
+import WhyUs from "@/components/WhyUs";
+import Testimonials from "@/components/Testimonials";
+import CTAStrip from "@/components/CTAStrip";
 
-export default function LandingPage() {
+export default function HomePage() {
   return (
-    <main className="min-h-screen bg-gray-50">
+    <>
       <Hero />
-      <About />
-      <Services />
-      <Products />
-      <Market />
-      <Leadership />
-    </main>
-  )
+      <MarqueeTicker />
+      <AboutSection />
+      <ProductsSection featured={true} />
+      <Process />
+      <WhyUs />
+      <Testimonials />
+      <CTAStrip />
+    </>
+  );
 }
-
