@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { products } from "@/lib/data";
+import { useProductModal } from "@/context/ProductModalContext";
 
 interface ProductsSectionProps {
   featured?: boolean;
@@ -14,6 +15,7 @@ interface ProductsSectionProps {
 export default function ProductsSection({ featured = false }: ProductsSectionProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { openModal } = useProductModal();
 
   return (
     <section className="bg-[#0E1B2E] py-24" ref={ref}>
@@ -90,12 +92,12 @@ export default function ProductsSection({ featured = false }: ProductsSectionPro
 
                       {/* Hover CTA */}
                       <div className="overflow-hidden h-7">
-                        <Link
-                          href="/contact"
+                        <button
+                          onClick={() => openModal(product.name)}
                           className="flex items-center gap-2 text-[#E05A1E] text-sm font-semibold translate-y-8 group-hover:translate-y-0 transition-transform duration-300 font-body"
                         >
                           Enquire Now <ArrowRight className="w-4 h-4" />
-                        </Link>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -140,12 +142,12 @@ export default function ProductsSection({ featured = false }: ProductsSectionPro
                       ))}
                     </ul>
                     <div className="overflow-hidden h-6">
-                      <Link
-                        href="/contact"
+                      <button
+                        onClick={() => openModal(product.name)}
                         className="flex items-center gap-2 text-[#E05A1E] text-sm font-semibold translate-y-8 group-hover:translate-y-0 transition-transform duration-300 font-body"
                       >
                         Enquire Now <ArrowRight className="w-4 h-4" />
-                      </Link>
+                      </button>
                     </div>
                   </div>
                 </div>

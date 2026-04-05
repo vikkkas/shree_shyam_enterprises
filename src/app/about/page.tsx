@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import Image from "next/image";
 import Link from "next/link";
 import { Award, CheckCircle2, Users, TrendingUp } from "lucide-react";
@@ -9,7 +10,22 @@ import { certifications, machineList } from "@/lib/data";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Learn about Shree Shyam Enterprise's story, founder vision, certifications and manufacturing facility in Ankleshwar, Gujarat.",
+    "Shree Shyam Enterprise — founded 2022 in Ankleshwar, Gujarat. ISO 9001:2015 & ZED Bronze certified aluminium casting manufacturer. Trusted by BHEL & Aditya Birla.",
+  keywords: [
+    "about Shree Shyam Enterprise",
+    "aluminium manufacturer Gujarat",
+    "ISO 9001 casting",
+    "Bhrigunath Prasad",
+    "Ankleshwar manufacturer",
+  ],
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: "About Us | Shree Shyam Enterprise",
+    description:
+      "Learn how Shree Shyam Enterprise grew from ₹10 Lakh to ₹1 Crore revenue with ISO-certified precision aluminium manufacturing.",
+    url: "/about",
+    images: [{ url: "/images/intro-1.png", width: 1200, height: 630 }],
+  },
 };
 
 const galleryImages = Array.from({ length: 12 }, (_, i) => ({
@@ -51,9 +67,19 @@ const milestones = [
   },
 ];
 
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.shreeshyam-enterprise.com" },
+    { "@type": "ListItem", position: 2, name: "About Us", item: "https://www.shreeshyam-enterprise.com/about" },
+  ],
+};
+
 export default function AboutPage() {
   return (
     <>
+      <Script id="about-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       {/* Page Hero */}
       <section className="relative min-h-[50vh] flex items-end overflow-hidden">
         <div className="absolute inset-0">
@@ -133,23 +159,93 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Right: Vision image */}
+            {/* Right: Designed growth visualization card */}
             <div className="relative">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
-                <Image
-                  src="/images/vision.png"
-                  alt="Shree Shyam Enterprise Vision"
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0E1B2E]/60 to-transparent" />
+              {/* Main card */}
+              <div className="bg-[#1A2D48] border border-white/5 overflow-hidden">
+                {/* Orange header bar */}
+                <div className="bg-[#E05A1E] px-6 py-4 flex items-center justify-between">
+                  <span className="font-heading font-black text-white text-lg uppercase tracking-wide">
+                    Company Growth
+                  </span>
+                  <TrendingUp className="w-5 h-5 text-white" />
+                </div>
+
+                {/* Timeline visual */}
+                <div className="px-6 pt-8 pb-6">
+                  <div className="relative">
+                    {/* Connector line */}
+                    <div className="absolute top-4 left-4 right-4 h-0.5 bg-gradient-to-r from-[#E05A1E] via-[#E05A1E] to-[#E05A1E]/30" />
+                    <div className="flex justify-between relative z-10">
+                      {[
+                        { year: "2022", amount: "₹10 Lakh", label: "Founded", done: true },
+                        { year: "2026", amount: "₹1 Crore", label: "Achieved", done: true },
+                        { year: "2030", amount: "₹10 Crore", label: "Target", done: false },
+                      ].map((m) => (
+                        <div key={m.year} className="flex flex-col items-center gap-2">
+                          <div
+                            className={`w-8 h-8 rounded-full border-2 flex items-center justify-center ${
+                              m.done
+                                ? "bg-[#E05A1E] border-[#E05A1E]"
+                                : "bg-[#1A2D48] border-[#E05A1E] border-dashed"
+                            }`}
+                          >
+                            {m.done ? (
+                              <div className="w-2.5 h-2.5 bg-white rounded-full" />
+                            ) : (
+                              <div className="w-2.5 h-2.5 border border-[#E05A1E] rounded-full" />
+                            )}
+                          </div>
+                          <span className="font-heading font-black text-[#E05A1E] text-xl leading-none">
+                            {m.amount}
+                          </span>
+                          <span className="text-white font-body font-semibold text-xs">
+                            {m.year}
+                          </span>
+                          <span className="text-[#8BA3BF] text-[10px] uppercase tracking-widest font-body">
+                            {m.label}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Divider */}
+                <div className="h-px bg-white/5 mx-6" />
+
+                {/* Certifications row */}
+                <div className="grid grid-cols-3 divide-x divide-white/5 px-0">
+                  {[
+                    { name: "ISO", sub: "9001:2015" },
+                    { name: "ZED", sub: "Bronze" },
+                    { name: "Udyam", sub: "Registered" },
+                  ].map((c) => (
+                    <div key={c.name} className="flex flex-col items-center py-5 px-3">
+                      <span className="font-heading font-black text-white text-base">{c.name}</span>
+                      <span className="text-[#8BA3BF] text-[10px] uppercase tracking-widest font-body text-center">
+                        {c.sub}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="absolute -bottom-4 -left-4 bg-[#E05A1E] p-6 z-10">
-                <TrendingUp className="w-6 h-6 text-white mb-2" />
-                <p className="font-heading font-black text-white text-2xl">₹10 Cr</p>
-                <p className="text-white/80 text-xs uppercase tracking-widest font-body">
-                  Target 2030
+
+              {/* Floating clients box */}
+              <div className="mt-4 bg-[#070F1A] border border-white/5 p-5">
+                <p className="text-[#8BA3BF] text-[10px] uppercase tracking-widest font-body mb-3">
+                  Trusted by
                 </p>
+                <div className="flex flex-wrap gap-2">
+                  {["BHEL", "Aditya Birla", "RC Ravikiran", "Mahalaxmi Ceramic"].map((c) => (
+                    <span
+                      key={c}
+                      className="border border-[#E05A1E]/30 text-white/70 text-xs font-body px-3 py-1"
+                    >
+                      {c}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -209,23 +305,92 @@ export default function AboutPage() {
       <section className="bg-[#0E1B2E] py-24">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            {/* Image */}
-            <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
-              <Image
-                src="/images/vision.png"
-                alt="Bhrigunath Prasad - Founder & MD"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0E1B2E]/80 via-transparent to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6">
-                <p className="font-heading font-black text-white text-2xl">
-                  Bhrigunath Prasad
-                </p>
-                <p className="text-[#E05A1E] text-sm font-body tracking-widest uppercase">
-                  Founder & Managing Director
-                </p>
+            {/* Founder portrait card — designed, no raw presentation image */}
+            <div className="relative">
+              {/* Main portrait card */}
+              <div className="bg-[#1A2D48] border border-white/5 overflow-hidden">
+                {/* Portrait photo section */}
+                <div className="relative bg-[#152338] overflow-hidden">
+                  {/* Orange left accent bar */}
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#E05A1E] z-10" />
+                  {/* Grid overlay */}
+                  <div
+                    className="absolute inset-0 opacity-[0.03]"
+                    style={{
+                      backgroundImage:
+                        "repeating-linear-gradient(0deg,transparent,transparent 30px,white 30px,white 31px),repeating-linear-gradient(90deg,transparent,transparent 30px,white 30px,white 31px)",
+                    }}
+                  />
+
+                  {/* Photo + name row */}
+                  <div className="relative z-10 flex items-center gap-6 px-8 py-8">
+                    {/* Circular portrait */}
+                    <div className="relative flex-shrink-0">
+                      <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-[#E05A1E]/60 ring-4 ring-[#E05A1E]/10">
+                        <Image
+                          src="/images/founder.png"
+                          alt="Bhrigunath Prasad — Founder & MD, Shree Shyam Enterprise"
+                          width={96}
+                          height={96}
+                          className="object-cover object-top w-full h-full"
+                        />
+                      </div>
+                      {/* Small orange dot badge */}
+                      <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-[#E05A1E] rounded-full flex items-center justify-center">
+                        <TrendingUp className="w-3 h-3 text-white" />
+                      </div>
+                    </div>
+
+                    {/* Name + title */}
+                    <div>
+                      <h3 className="font-heading font-black text-white text-xl leading-tight">
+                        Bhrigunath Prasad
+                      </h3>
+                      <p className="text-[#E05A1E] text-[10px] font-body tracking-[0.2em] uppercase mt-1">
+                        Founder &amp; Managing Director
+                      </p>
+                      <p className="text-[#8BA3BF] text-xs font-body mt-1">
+                        Shree Shyam Enterprise · Est. 2022
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Stats row */}
+                <div className="grid grid-cols-3 divide-x divide-white/5">
+                  {[
+                    { val: "2022", label: "Founded" },
+                    { val: "₹1 Cr", label: "Revenue" },
+                    { val: "6+", label: "Clients" },
+                  ].map((s) => (
+                    <div key={s.label} className="flex flex-col items-center py-5">
+                      <span className="font-heading font-black text-[#E05A1E] text-xl leading-none">
+                        {s.val}
+                      </span>
+                      <span className="text-[#8BA3BF] text-[10px] uppercase tracking-widest font-body mt-1">
+                        {s.label}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
+
+              {/* Certification badges below */}
+              <div className="mt-4 flex gap-3">
+                {["ISO 9001:2015", "ZED Bronze", "Udyam Reg."].map((cert) => (
+                  <div
+                    key={cert}
+                    className="flex-1 bg-[#070F1A] border border-[#E05A1E]/20 py-3 px-2 text-center"
+                  >
+                    <span className="text-[#E05A1E] text-[10px] font-bold tracking-wide uppercase font-body block">
+                      {cert}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Orange corner accent */}
+              <div className="absolute -bottom-3 -right-3 w-12 h-12 bg-[#E05A1E] z-[-1]" />
             </div>
 
             {/* Content */}

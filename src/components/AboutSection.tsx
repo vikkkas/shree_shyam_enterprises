@@ -65,15 +65,7 @@ export default function AboutSection() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#0E1B2E]/60 to-transparent" />
             </div>
 
-            {/* Small accent image */}
-            <div className="absolute -bottom-4 -right-4 w-48 h-48 border-4 border-[#0E1B2E] z-10 overflow-hidden rounded-sm">
-              <Image
-                src="/images/vision.png"
-                alt="Vision of Shree Shyam Enterprise"
-                fill
-                className="object-cover"
-              />
-            </div>
+
           </motion.div>
 
           {/* RIGHT: Content */}

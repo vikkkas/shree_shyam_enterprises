@@ -1,18 +1,55 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import Image from "next/image";
 import Link from "next/link";
-import { MapPin, Building2 } from "lucide-react";
+import { MapPin, Building2, Clock, ExternalLink } from "lucide-react";
 import ContactSection from "@/components/ContactSection";
 
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Contact Shree Shyam Enterprise for aluminium flange and casting enquiries. Located in Ankleshwar, Gujarat. Call +91 8866009082.",
+    "Contact Shree Shyam Enterprise for aluminium flange and casting enquiries. Kamdhenu Industrial Park 2, Ankleshwar, Gujarat 393002. Call +91 8866009082 or email us.",
+  keywords: [
+    "contact Shree Shyam Enterprise",
+    "aluminium casting enquiry",
+    "flange manufacturer contact",
+    "Ankleshwar Gujarat manufacturer",
+  ],
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    title: "Contact Us | Shree Shyam Enterprise",
+    description:
+      "Send your drawings or enquiry to Shree Shyam Enterprise. Call +91 8866009082 or visit our facility in Ankleshwar, Gujarat.",
+    url: "/contact",
+    images: [{ url: "/images/contact-bg.png", width: 1200, height: 630 }],
+  },
+};
+
+const contactSchema = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  name: "Contact Shree Shyam Enterprise",
+  url: "https://www.shreeshyam-enterprise.com/contact",
+  mainEntity: {
+    "@type": "Organization",
+    name: "Shree Shyam Enterprise",
+    telephone: "+91-8866009082",
+    email: "shreeshyam.enterprise22@gmail.com",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Kamdhenu Industrial Park 2, Plot No. A3, Jitali",
+      addressLocality: "Ankleshwar",
+      addressRegion: "Gujarat",
+      postalCode: "393002",
+      addressCountry: "IN",
+    },
+  },
 };
 
 export default function ContactPage() {
   return (
     <>
+      <Script id="contact-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }} />
       {/* Page Hero */}
       <section className="relative min-h-[50vh] flex items-end overflow-hidden">
         <div className="absolute inset-0">
@@ -62,23 +99,35 @@ export default function ContactPage() {
             </p>
           </div>
 
-          {/* Map placeholder card */}
+          {/* Map card */}
           <div className="bg-[#1A2D48] border border-white/5 overflow-hidden">
-            <div className="bg-[#0E1B2E] h-72 flex flex-col items-center justify-center gap-4 border-b border-white/5">
-              <Building2 className="w-16 h-16 text-[#E05A1E]/40" />
-              <p className="text-[#8BA3BF] font-body text-sm">
-                Interactive map coming soon
-              </p>
+            {/* Google Maps iframe */}
+            <div className="relative w-full h-[420px]">
+              <iframe
+                title="Shree Shyam Enterprise Location"
+                src="https://maps.google.com/maps?q=Kamdhenu+Industrial+Park+2+Ankleshwar+Gujarat+393002&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="grayscale contrast-125 opacity-90"
+              />
+              {/* Open in Maps overlay button */}
               <a
-                href="https://maps.google.com/?q=Kamdhenu+Industrial+Park+2+Ankleshwar+Gujarat"
+                href="https://maps.google.com/?q=Kamdhenu+Industrial+Park+2,+Jitali,+Ankleshwar,+Gujarat+393002"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-clip bg-[#E05A1E] text-white px-6 py-2 text-sm font-semibold hover:bg-[#c94d17] transition-colors"
+                className="absolute top-3 right-3 flex items-center gap-1.5 bg-[#0E1B2E]/90 backdrop-blur-sm border border-white/10 text-white text-xs font-body px-3 py-1.5 hover:bg-[#E05A1E] hover:border-[#E05A1E] transition-colors"
               >
-                Open in Google Maps
+                <ExternalLink className="w-3.5 h-3.5" />
+                Open in Maps
               </a>
             </div>
-            <div className="p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            {/* Info strip below map */}
+            <div className="p-8 grid grid-cols-1 md:grid-cols-3 gap-6 border-t border-white/5">
               <div className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-[#E05A1E] flex-shrink-0 mt-0.5" />
                 <div>
@@ -95,17 +144,17 @@ export default function ContactPage() {
                   <p className="text-white font-body font-semibold text-sm mb-1">Nearest City</p>
                   <p className="text-[#8BA3BF] text-sm font-body">
                     Bharuch, Gujarat<br />
-                    (12 km from Ankleshwar)
+                    ~12 km from Ankleshwar
                   </p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-[#E05A1E] flex-shrink-0 mt-0.5" />
+                <Clock className="w-5 h-5 text-[#E05A1E] flex-shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-white font-body font-semibold text-sm mb-1">Landmarks</p>
+                  <p className="text-white font-body font-semibold text-sm mb-1">Working Hours</p>
                   <p className="text-[#8BA3BF] text-sm font-body">
-                    Kamdhenu Industrial Park 2<br />
-                    Jitali, GIDC Area
+                    Mon – Sat: 9:00 AM – 6:00 PM<br />
+                    Sunday: Closed
                   </p>
                 </div>
               </div>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import Image from "next/image";
 import Link from "next/link";
 import ProductsClient from "./ProductsClient";
@@ -6,12 +7,45 @@ import ProductsClient from "./ProductsClient";
 export const metadata: Metadata = {
   title: "Our Products",
   description:
-    "Explore Shree Shyam Enterprise's range of precision aluminium flanges, motor housings, blower housings, pulley castings and CNC machined components.",
+    "Precision aluminium flanges, motor housings, blower housings, pulley castings and CNC machined components. ISO 9001:2015 certified. Custom sizes available. Enquire now.",
+  keywords: [
+    "aluminium insulator flange",
+    "aluminium threaded flange",
+    "aluminium motor housing",
+    "aluminium blower housing",
+    "aluminium pulley casting",
+    "CNC machined aluminium",
+    "custom aluminium castings",
+    "precision flanges India",
+  ],
+  alternates: { canonical: "/products" },
+  openGraph: {
+    title: "Our Products | Shree Shyam Enterprise",
+    description:
+      "High precision aluminium flanges, housings and custom castings. ISO certified. Served BHEL, Aditya Birla & more.",
+    url: "/products",
+    images: [{ url: "/images/product-1.png", width: 1200, height: 630 }],
+  },
+};
+
+const productListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Precision Aluminium Products — Shree Shyam Enterprise",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Aluminium Insulator Flange" },
+    { "@type": "ListItem", position: 2, name: "Aluminium Threaded Flange" },
+    { "@type": "ListItem", position: 3, name: "Aluminium Motor Housing" },
+    { "@type": "ListItem", position: 4, name: "Aluminium Blower Housing" },
+    { "@type": "ListItem", position: 5, name: "Aluminium Pulley Casting" },
+    { "@type": "ListItem", position: 6, name: "CNC Machined Aluminium Housing" },
+  ],
 };
 
 export default function ProductsPage() {
   return (
     <>
+      <Script id="products-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productListSchema) }} />
       {/* Page Hero */}
       <section className="relative min-h-[50vh] flex items-end overflow-hidden">
         <div className="absolute inset-0">
